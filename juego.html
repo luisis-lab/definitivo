@@ -35,10 +35,14 @@
       margin: auto;
     }  .scoreboard-wrapper {
       position: fixed;
-      bottom: 90px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10001;
+      width: 100%;
+      text-align: center;
+      padding: 0 20px;
+      pointer-events: none;
     }
     
     .scoreboard-btn {
@@ -49,18 +53,19 @@
       text-decoration: none;
       border-radius: 8px;
       border: 2px solid #d48871;
-      font-size: 12px;
+      font-size: 14px;
       transition: all 0.3s ease;
       text-shadow: 1px 1px #000;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      pointer-events: auto;
+      margin: 0 auto;
     }
 
     .scoreboard-btn:hover {
       background: linear-gradient(45deg, #d48871, #FFD700);
       color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(212,136,113,0.4);
-      text-shadow: none;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
     }
     
     .contenedor {
@@ -367,12 +372,13 @@
       }
 
       .scoreboard-wrapper {
-        bottom: 20px;
+        bottom: 15px;
       }
-
+      
       .scoreboard-btn {
-        font-size: 10px;
-        padding: 8px 15px;
+        font-size: 12px;
+        padding: 10px 20px;
+        max-width: 90%;
       }
 
       .game-over {
@@ -414,6 +420,59 @@
 
       .score-value, .high-score-value {
         font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .scoreboard-wrapper {
+        bottom: 10px;
+      }
+      
+      .scoreboard-btn {
+        font-size: 11px;
+        padding: 8px 15px;
+        max-width: 85%;
+      }
+    }
+
+    /* Ajustes específicos para diferentes dispositivos */
+    @media only screen 
+    and (device-width: 390px) 
+    and (device-height: 844px) 
+    and (-webkit-device-pixel-ratio: 3) {
+      /* iPhone 12 Pro, 13 Pro, 14 Pro */
+      .scoreboard-wrapper {
+        bottom: 25px;
+      }
+    }
+
+    @media only screen 
+    and (device-width: 428px) 
+    and (device-height: 926px) 
+    and (-webkit-device-pixel-ratio: 3) {
+      /* iPhone 12 Pro Max, 13 Pro Max, 14 Pro Max */
+      .scoreboard-wrapper {
+        bottom: 30px;
+      }
+    }
+
+    @media only screen 
+    and (device-width: 412px) 
+    and (device-height: 915px) 
+    and (-webkit-device-pixel-ratio: 2.625) {
+      /* Samsung S22, S23, S24 */
+      .scoreboard-wrapper {
+        bottom: 20px;
+      }
+    }
+
+    @media only screen 
+    and (device-width: 360px) 
+    and (device-height: 800px) 
+    and (-webkit-device-pixel-ratio: 3) {
+      /* Xiaomi diversos modelos */
+      .scoreboard-wrapper {
+        bottom: 18px;
       }
     }
   </style>
