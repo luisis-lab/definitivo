@@ -363,50 +363,37 @@
       }
 
       .contenedor {
-        height: calc(100vh - 60px);
-        overflow: hidden;
-        position: relative;
+        height: 200px;
       }
 
       .scoreboard-wrapper {
-        position: fixed;
-        bottom: 10px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        z-index: 1000;
-        pointer-events: none;
+        bottom: 20px;
       }
 
       .scoreboard-btn {
-        display: inline-block;
-        background: rgba(0, 0, 0, 0.7);
-        color: #fff;
+        font-size: 10px;
         padding: 8px 15px;
-        border-radius: 20px;
-        text-decoration: none;
-        font-size: 14px;
-        margin-bottom: 10px;
-        pointer-events: auto;
       }
 
       .game-over {
-        position: fixed;
-        top: 50%;
+        width: 90%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1001;
+        margin-left: -45%;
+        padding: 20px;
+      }
+
+      .game-over-title {
+        font-size: 20px;
+      }
+
+      .game-over-score {
+        font-size: 16px;
       }
 
       .game-over-code input {
         width: 80%;
-        max-width: 200px;
+        font-size: 12px;
         padding: 8px;
-        font-size: 16px;
-        margin-top: 10px;
-        border: none;
-        border-radius: 4px;
-        background: rgba(255, 255, 255, 0.9);
       }
 
       .game-over-instruction {
@@ -546,14 +533,20 @@ textoHighScore.textContent = highScore;
 function handleTouch(e) {
   e.preventDefault(); // Prevenir comportamiento por defecto
   
-  // Si estamos en game over, intentar reiniciar el juego
+  // Si estamos en game over, verificar si el toque fue en el input de código
   if (gameOver) {
-    const gameOverCode = document.querySelector('.game-over-code input');
-    if (gameOverCode && gameOverCode.value.trim() !== '') {
+    const gameOverInput = document.querySelector('.game-over-code input');
+    if (e.target === gameOverInput) {
+      return; // Permitir la interacción con el input
+    }
+    
+    // Si hay un código ingresado, reiniciar el juego
+    const code = gameOverInput.value.trim();
+    if (code !== '') {
       resetGame();
       gameOver = false;
       gameStarted = true;
-      gameOverCode.value = '';
+      gameOverInput.value = '';
       return;
     }
   }
