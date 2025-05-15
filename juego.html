@@ -161,7 +161,7 @@
 
     .game-over {
       display: none; 
-      position: absolute; 
+      position: absolute;
       width: 100%; 
       text-align: center; 
       top: 50%; 
@@ -353,6 +353,69 @@
       background-size: 336px 84px;
       display: none;
     }
+
+    /* Media queries para móviles */
+    @media (max-width: 768px) {
+      .game-container {
+        width: 100%;
+        height: auto;
+        padding: 0 10px;
+      }
+
+      .contenedor {
+        height: 200px;
+      }
+
+      .scoreboard-wrapper {
+        bottom: 20px;
+      }
+
+      .scoreboard-btn {
+        font-size: 10px;
+        padding: 8px 15px;
+      }
+
+      .game-over {
+        width: 90%;
+        left: 50%;
+        margin-left: -45%;
+        padding: 20px;
+      }
+
+      .game-over-title {
+        font-size: 20px;
+      }
+
+      .game-over-score {
+        font-size: 16px;
+      }
+
+      .game-over-code input {
+        width: 80%;
+        font-size: 12px;
+        padding: 8px;
+      }
+
+      .game-over-instruction {
+        font-size: 10px;
+      }
+
+      .controls-hint {
+        font-size: 8px;
+      }
+
+      .score, .high-score {
+        padding: 3px 10px;
+      }
+
+      .score-label, .high-score-label {
+        font-size: 8px;
+      }
+
+      .score-value, .high-score-value {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -462,9 +525,37 @@ const objectCountElement = document.getElementById('objectCount');
 document.getElementById('startBtn').addEventListener('click', startGame);
 document.addEventListener('keydown', handleKeyDown);
 document.addEventListener('click', handleClick);
+document.addEventListener('touchstart', handleTouch); // Añadir manejo de eventos táctiles
 
 // Cargar high score
 textoHighScore.textContent = highScore;
+
+function handleTouch(e) {
+  e.preventDefault(); // Prevenir comportamiento por defecto
+  
+  // Si estamos en game over, verificar si el toque fue en el input de código
+  if (gameOver) {
+    const gameOverInput = document.querySelector('.game-over-code input');
+    if (e.target === gameOverInput) {
+      return; // Permitir la interacción con el input
+    }
+    
+    // Si hay un código ingresado, reiniciar el juego
+    const code = gameOverInput.value.trim();
+    if (code !== '') {
+      resetGame();
+      gameOver = false;
+      gameStarted = true;
+      gameOverInput.value = '';
+      return;
+    }
+  }
+  
+  // Si el juego está activo, saltar
+  if (gameStarted && !gameOver) {
+    saltar();
+  }
+}
 
 // Iniciar el bucle de animación
 requestAnimationFrame(update);
